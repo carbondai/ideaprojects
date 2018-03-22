@@ -5,11 +5,25 @@ package com.company;
  */
 public class MergeKLists {
     public static ListNode mergeKList(ListNode[] lists){
+        if(lists == null || lists.length == 0) {
+            return null;
+        }
+        /*
         ListNode temp = lists[0];
         for(int i=0; i<lists.length -1 ; i++) {
             temp = MergeTwoLists.merge(temp, lists[i+1]);
         }
         return temp;
+        */
+        int n = lists.length;
+        while(n>1){
+            int k = (n+1)/2;
+            for(int i=0; i<n/2; i++) {
+                lists[i] = MergeTwoLists.merge(lists[i], lists[n-1-i]);
+            }
+            n = k;
+        }
+        return lists[0];
     }
     public static void main(String[] args) {
         ListNode l1 = new ListNode(1);
@@ -29,7 +43,12 @@ public class MergeKLists {
         ListNode l10 = new ListNode(7);
         l8.next = l9;
         l9.next = l10;
-        ListNode[] ls = {l8, l1};
+        ListNode l11 = new ListNode(1);
+        ListNode l12 = new ListNode(3);
+        ListNode l13 = new ListNode(10);
+        l11.next = l12;
+        l12.next = l13;
+        ListNode[] ls = {null,  l5, l11};
         MergeTwoLists.displayList(mergeKList(ls));
     }
 }
