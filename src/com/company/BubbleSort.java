@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created by ht706 on 18-1-22.
  */
 public class BubbleSort {
-    private static void swap(int[] a, int i, int j) {
+    public static void swap(int[] a, int i, int j) {
         int temp;
         temp = a[i];
         a[i] = a[j];
@@ -36,16 +36,25 @@ public class BubbleSort {
         }
         return a;
     }
+    public static int[] bubbleSort3(int[] a) {
+        int n = a.length;
+        for(int i=n-1; i>0; i--) {
+            int pos=0;
+            for(int j=0; j<i; j++) {
+                if(a[j] > a[j+1]){
+                    swap(a, j, j+1);
+                    pos = j+1;
+                }
+            }
+            i = pos;
+        }
+        return a;
+    }
     public static void main(String[] args) {
         int[] a = {99, 3, 354, 42, 33, 146, 31, 0, 95, 109};
-        int[] b = bubbleSort(a);
+        int[] b = bubbleSort3(a);
         for(int bs:b) {
             System.out.print(bs + " ");
-        }
-        System.out.println();
-        int[] c = bubbleSort2(a);
-        for(int cs:c) {
-            System.out.print(cs + " ");
         }
     }
 }

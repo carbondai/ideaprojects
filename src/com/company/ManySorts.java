@@ -1,5 +1,7 @@
 package com.company;
 
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
+
 import java.util.Arrays;
 import java.util.Random;
 
@@ -46,15 +48,56 @@ public class ManySorts {
         }
         return a;
     }
+    public static int[] quickSort(int[] a, int start, int end) {
+        if(start>=end)
+            return a;
+        int pos = divide(a, start, end);
+        quickSort(a, start , pos -1);
+        quickSort(a, pos+1, end);
+        return a;
+
+    }
+    static int divide(int[] a, int start, int end) {
+        int base = a[end];
+        while (start < end) {
+            while(start < end && a[start] <= base) {
+                start++;
+            }
+            if(start<end) {
+                int temp = a[start];
+                a[start] = a[end];
+                a[end] = temp;
+                end--;
+            }
+            while(start < end && a[end] >= base) {
+                end--;
+            }
+            if(start<end) {
+                int temp = a[start];
+                a[start] = a[end];
+                a[end] = temp;
+                start++;
+            }
+
+        }
+        return end;
+    }
 
     public static void main(String[] args) {
-        final int[] a = new int[30];
+        int n = 100000;
+        final int[] a = new int[n];
         Random r = new Random(47);
-        for(int i=0; i<30; i++) {
-            a[i] = r.nextInt(100);
+        for(int i=0; i<n; i++) {
+            a[i] = r.nextInt(n);
         }
+        long start = System.currentTimeMillis();
+        //quickSort(a, 0, a.length-1);
+        //insertSort(a);
         binaryInsertSort(a);
+        //BubbleSort.bubbleSort3(a);
+        long end = System.currentTimeMillis();
+        System.out.print("time: "+(end-start));
 
-        System.out.print(Arrays.toString(a));
+        //System.out.print(Arrays.toString(a));
     }
 }
