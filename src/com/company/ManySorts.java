@@ -82,6 +82,36 @@ public class ManySorts {
         }
         return end;
     }
+    public static void mergeSort(int[] a, int start, int end) {
+        int mid = (start + end)/2;
+        if(start < end) {
+            mergeSort(a, start, mid);
+            mergeSort(a, mid + 1, end);
+            merge(a, start, mid, end);
+        }
+    }
+    static  void merge(int[]a, int start, int mid, int end) {
+        int[] temp = new int[end - start +1];
+        int i = start;
+        int j = mid + 1;
+        int k = 0;
+        while(i<=mid&&j<=end) {
+            if(a[i]<a[j]){
+                temp[k++] = a[i++];
+            } else {
+                temp[k++] = a[j++];
+            }
+        }
+        while(i<=mid) {
+            temp[k++] = a[i++];
+        }
+        while(j<=end) {
+            temp[k++] = a[j++];
+        }
+        for(int m=0; m<temp.length;m++) {
+            a[m+start] = temp[m];
+        }
+    }
 
     public static void main(String[] args) {
         int n = 100000;
@@ -93,8 +123,9 @@ public class ManySorts {
         long start = System.currentTimeMillis();
         //quickSort(a, 0, a.length-1);
         //insertSort(a);
-        binaryInsertSort(a);
+        //binaryInsertSort(a);
         //BubbleSort.bubbleSort3(a);
+        mergeSort(a, 0, a.length-1);
         long end = System.currentTimeMillis();
         System.out.print("time: "+(end-start));
 
